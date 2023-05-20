@@ -7,3 +7,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 MainWindow::~MainWindow() {
     delete ui;
 }
+
+void MainWindow::addUserCard(UserCard *newCard) {
+    ui->scrollAreaWidgetContents->layout()->addWidget(newCard);
+}
