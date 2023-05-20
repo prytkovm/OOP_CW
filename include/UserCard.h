@@ -2,6 +2,7 @@
 #define CW_USERCARD_H
 
 #include "ui_UserCard.h"
+#include "User.h"
 #include <string>
 
 QT_BEGIN_NAMESPACE
@@ -15,7 +16,7 @@ class UserCard : public QWidget {
     Q_OBJECT
 
     public:
-    explicit UserCard(const std::string &number, QWidget *parent=nullptr);
+    explicit UserCard(User &userModel, QWidget *parent=nullptr);
     ~UserCard() override;
     void setStatus(const std::string &newStatus);
 

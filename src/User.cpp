@@ -7,6 +7,10 @@ User::User(QObject *parent) : QObject(parent) {
     state = AllowedStates::READY;
     number = generateNumber();
     User::objectsCount++;
+//    connect(,
+//            &User::call,
+//            this,
+//            &User::onCall_received);
 }
 
 void User::setNumber(const std::string &newNumber) {
@@ -24,4 +28,8 @@ std::string User::generateNumber() {
     auto result = std::string((numberLength - strNumber.length()), '0') + strNumber;
 
     return result;
+}
+
+void User::onCall_received(const std::string &s) {
+    std::cerr << "Call from: " << getNumber() << " to: " << s << std::endl;
 }

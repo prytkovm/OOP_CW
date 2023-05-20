@@ -7,8 +7,14 @@
 
 const int numberLength = 4;
 
+enum AllowedStates {
+    INACTIVE,
+    READY,
+    CALL,
+    TALK
+};
 
-class User : private QObject {
+class User : public QObject {
     Q_OBJECT
 
     public:
@@ -18,21 +24,20 @@ class User : private QObject {
     void setNumber(const std::string &newNumber);
 
     private:
-    enum AllowedStates {
-        READY,
-        CALL,
-        TALK
-    };
     int state;
     std::string number;
     static int objectsCount;
     static std::string generateNumber();
 
-//    signals:
-//    void call(const std::string &numberTo);
-//
-//    public slots:
-//    void acceptCall(const std::string &numberFrom);
+    public slots:
+    void onCall_received(const std::string &s);
+
+    signals:
+    void call(const std::string &subscriberNumber);
+    void acceptCall();
+    void dropCall();
+    void sendMessage(const std::string &message);
+    void receivedMessage(const std::string &message);
 
 };
 

@@ -14,8 +14,7 @@
    <string>Мини АТС</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: white;
-color: black;</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
