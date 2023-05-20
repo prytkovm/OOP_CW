@@ -2,12 +2,19 @@
 
 
 User::User(QObject *parent) : QObject(parent) {
+    state = AllowedStates::READY;
+    objectsCount++;
 }
 
-User::~User() {
-
+void User::setNumber(const std::string &newNumber) {
+    number = newNumber;
 }
 
-void User::setNumber(std::string newNumber) {
+std::string User::getNumber() const {
+    return number;
+}
+
+std::string User::numberFromInt(int number) {
+    auto result = std::string("0", numberLength);
 
 }

@@ -5,22 +5,29 @@
 #include <string>
 
 
-const int numberLength = 11;
+const int numberLength = 4;
 
 
 class User : private QObject {
     Q_OBJECT
 
     public:
-    User(QObject *parent=nullptr);
-    ~User() override;
+    explicit User(QObject *parent=nullptr);
+    ~User() override = default;
     std::string getNumber() const;
-    void setNumber(std::string newNumber);
+    void setNumber(const std::string &newNumber);
 
     private:
+    enum AllowedStates {
+        READY,
+        CALL,
+        TALK
+    };
     static int objectsCount;
+    int state;
     std::string number;
 
+    static std::string numberFromInt(int number);
 
 };
 
