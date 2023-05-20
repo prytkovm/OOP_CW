@@ -28,6 +28,12 @@ class User : private QObject {
     static int objectsCount;
     static std::string generateNumber();
 
+//    signals:
+//    void call(const std::string &numberTo);
+//
+//    public slots:
+//    void acceptCall(const std::string &numberFrom);
+
 };
 
 #endif
