@@ -1,9 +1,11 @@
 #include "User.h"
 
+int User::objectsCount;
 
 User::User(QObject *parent) : QObject(parent) {
     state = AllowedStates::READY;
-    objectsCount++;
+    number = generateNumber();
+    User::objectsCount++;
 }
 
 void User::setNumber(const std::string &newNumber) {
@@ -14,7 +16,11 @@ std::string User::getNumber() const {
     return number;
 }
 
-std::string User::numberFromInt(int number) {
-    auto result = std::string("0", numberLength);
+std::string User::generateNumber() {
+    using std::string, std::to_string;
 
+    auto strNumber = to_string(User::objectsCount);
+    auto result = std::string("0", (numberLength - strNumber.length()));
+
+    return result + strNumber;
 }

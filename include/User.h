@@ -23,13 +23,11 @@ class User : private QObject {
         CALL,
         TALK
     };
-    static int objectsCount;
     int state;
     std::string number;
-
-    static std::string numberFromInt(int number);
+    static int objectsCount;
+    static std::string generateNumber();
 
 };
-
 
 #endif
