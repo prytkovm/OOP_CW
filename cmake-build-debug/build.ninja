@@ -57,6 +57,14 @@ build CMakeFiles/CW.dir/CW_autogen/mocs_compilation.cpp.obj: CXX_COMPILER__CW_De
   OBJECT_DIR = CMakeFiles\CW.dir
   OBJECT_FILE_DIR = CMakeFiles\CW.dir\CW_autogen
 
+build CMakeFiles/CW.dir/src/MainWindow.cpp.obj: CXX_COMPILER__CW_Debug D$:/Projects/C++/CW/src/MainWindow.cpp || cmake_object_order_depends_target_CW
+  DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
+  DEP_FILE = CMakeFiles\CW.dir\src\MainWindow.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always -std=gnu++20
+  INCLUDES = -ID:/Projects/C++/CW/cmake-build-debug/CW_autogen/include -ID:/Projects/C++/CW/include -isystem D:/Qt/6.5.0/mingw_64/include/QtCore -isystem D:/Qt/6.5.0/mingw_64/include -isystem D:/Qt/6.5.0/mingw_64/mkspecs/win32-g++ -isystem D:/Qt/6.5.0/mingw_64/include/QtGui -isystem D:/Qt/6.5.0/mingw_64/include/QtWidgets
+  OBJECT_DIR = CMakeFiles\CW.dir
+  OBJECT_FILE_DIR = CMakeFiles\CW.dir\src
+
 build CMakeFiles/CW.dir/src/main.cpp.obj: CXX_COMPILER__CW_Debug D$:/Projects/C++/CW/src/main.cpp || cmake_object_order_depends_target_CW
   DEFINES = -DMINGW_HAS_SECURE_API=1 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DUNICODE -DWIN32 -DWIN64 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -D_UNICODE -D_WIN64
   DEP_FILE = CMakeFiles\CW.dir\src\main.cpp.obj.d
@@ -73,7 +81,7 @@ build CMakeFiles/CW.dir/src/main.cpp.obj: CXX_COMPILER__CW_Debug D$:/Projects/C+
 #############################################
 # Link the executable CW.exe
 
-build CW.exe: CXX_EXECUTABLE_LINKER__CW_Debug CMakeFiles/CW.dir/CW_autogen/mocs_compilation.cpp.obj CMakeFiles/CW.dir/src/main.cpp.obj | D$:/Qt/6.5.0/mingw_64/lib/libQt6Widgets.a D$:/Qt/6.5.0/mingw_64/lib/libQt6Gui.a D$:/Qt/6.5.0/mingw_64/lib/libQt6Core.a || CW_autogen CW_autogen_timestamp_deps
+build CW.exe: CXX_EXECUTABLE_LINKER__CW_Debug CMakeFiles/CW.dir/CW_autogen/mocs_compilation.cpp.obj CMakeFiles/CW.dir/src/MainWindow.cpp.obj CMakeFiles/CW.dir/src/main.cpp.obj | D$:/Qt/6.5.0/mingw_64/lib/libQt6Widgets.a D$:/Qt/6.5.0/mingw_64/lib/libQt6Gui.a D$:/Qt/6.5.0/mingw_64/lib/libQt6Core.a || CW_autogen CW_autogen_timestamp_deps
   FLAGS = -g
   LINK_LIBRARIES = D:/Qt/6.5.0/mingw_64/lib/libQt6Widgets.a  D:/Qt/6.5.0/mingw_64/lib/libQt6Gui.a  D:/Qt/6.5.0/mingw_64/lib/libQt6Core.a  -lmpr  -luserenv  -ld3d11  -ldxgi  -ldxguid  -ldcomp  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\CW.dir
@@ -116,7 +124,7 @@ build CW_autogen_timestamp_deps: phony CMakeFiles/CW_autogen_timestamp_deps
 #############################################
 # Utility command for CW_autogen
 
-build CW_autogen: phony CMakeFiles/CW_autogen CW_autogen/timestamp CW_autogen/mocs_compilation.cpp CW_autogen_timestamp_deps
+build CW_autogen: phony CMakeFiles/CW_autogen CW_autogen/include/forms/ui_MainWindow.h CW_autogen/timestamp CW_autogen/mocs_compilation.cpp CW_autogen_timestamp_deps
 
 
 #############################################
@@ -138,7 +146,7 @@ build CMakeFiles/CW_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles/CW
 #############################################
 # Phony custom command for CMakeFiles\CW_autogen
 
-build CMakeFiles/CW_autogen | ${cmake_ninja_workdir}CMakeFiles/CW_autogen: phony CW_autogen/timestamp || CW_autogen_timestamp_deps
+build CMakeFiles/CW_autogen CW_autogen/include/forms/ui_MainWindow.h | ${cmake_ninja_workdir}CMakeFiles/CW_autogen ${cmake_ninja_workdir}CW_autogen/include/forms/ui_MainWindow.h: phony CW_autogen/timestamp || CW_autogen_timestamp_deps
 
 # =============================================================================
 # Target aliases.

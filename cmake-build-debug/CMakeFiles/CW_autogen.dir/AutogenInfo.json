@@ -217,7 +217,15 @@
 	"CMAKE_SOURCE_DIR" : "D:/Projects/C++/CW",
 	"DEP_FILE" : "D:/Projects/C++/CW/cmake-build-debug/CW_autogen/deps",
 	"DEP_FILE_RULE_NAME" : "CW_autogen/timestamp",
-	"HEADERS" : [],
+	"HEADERS" : 
+	[
+		[
+			"D:/Projects/C++/CW/include/MainWindow.h",
+			"MU",
+			"6YEA5652QU/moc_MainWindow.cpp",
+			null
+		]
+	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
 	"INCLUDE_DIR" : "D:/Projects/C++/CW/cmake-build-debug/CW_autogen/include",
 	"MOC_COMPILATION_FILE" : "D:/Projects/C++/CW/cmake-build-debug/CW_autogen/mocs_compilation.cpp",
@@ -288,6 +296,7 @@
 	"SETTINGS_FILE" : "D:/Projects/C++/CW/cmake-build-debug/CMakeFiles/CW_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
+		[ "D:/Projects/C++/CW/src/MainWindow.cpp", "MU", null ],
 		[ "D:/Projects/C++/CW/src/main.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],
