@@ -22,6 +22,8 @@ class User : public QObject {
     ~User() override = default;
     std::string getNumber() const;
     void setNumber(const std::string &newNumber);
+    int getState() const;
+    void setState(int newState);
 
     private:
     int state;

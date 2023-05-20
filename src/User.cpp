@@ -21,6 +21,15 @@ std::string User::getNumber() const {
     return number;
 }
 
+int User::getState() const{
+    return state;
+}
+
+void User::setState(int newState){
+    state = newState;
+}
+
+
 std::string User::generateNumber() {
     using std::string, std::to_string;
 
