@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
     w->show();
     for (auto i = 0; i < 10; i++) {
         auto user = new User();
-//        std::cout << user->getNumber() << std::endl;
+        std::cerr << user->getNumber() << std::endl;
         delete user;
     }
     return QApplication::exec();

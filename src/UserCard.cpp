@@ -1,6 +1,8 @@
 #include "UserCard.h"
 #include "User.h"
 #include <QMessageBox>
+#include <QRegularExpressionValidator>
+#include <QRegularExpression>
 
 
 UserCard::UserCard(const std::string &number, QWidget *parent) : QWidget(parent), ui(new Ui::UserCard) {
@@ -18,7 +20,9 @@ UserCard::UserCard(const std::string &number, QWidget *parent) : QWidget(parent)
     connect(ui->callButton,
             &QPushButton::clicked,
             this,
-            &UserCard::onCallButton_clicked);
+            &UserCard::onCallButton_clicked);;
+    auto validator = new QRegularExpressionValidator(QRegularExpression("^[0-9]{4}$"), this);
+    ui->subscriberNumber->setValidator(validator);
 }
 
 UserCard::~UserCard() {
