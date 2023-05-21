@@ -143,7 +143,6 @@ void UserCard::onLimitExceeded() {
     setStatus("Занято");
 }
 
-
 //void UserCard::onCallAllowed() {
 //    setStatus()
 //}

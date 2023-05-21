@@ -35,6 +35,8 @@ class User : public QObject {
     private slots:
     void onAcceptCall_received();
     void onDropCall_received();
+    void onCallAccepted();
+    void onCallDropped();
 
     signals:
     void call(const std::string &subscriberNumber);
