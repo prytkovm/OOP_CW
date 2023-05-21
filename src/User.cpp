@@ -4,13 +4,17 @@
 int User::objectsCount = 0;
 
 User::User(QObject *parent) : QObject(parent) {
-    state = AllowedStates::READY;
+    setState(AllowedStates::INACTIVE);
     number = generateNumber();
     User::objectsCount++;
-//    connect(,
-//            &User::call,
-//            this,
-//            &User::onCall_received);
+    connect(this,
+            &User::acceptCall,
+            this,
+            &User::onAcceptCall_received);
+    connect(this,
+            &User::dropCall,
+            this,
+            &User::onDropCall_received);
 }
 
 void User::setNumber(const std::string &newNumber) {
@@ -21,12 +25,13 @@ std::string User::getNumber() const {
     return number;
 }
 
-int User::getState() const{
+int User::getState() const {
     return state;
 }
 
 void User::setState(int newState){
     state = newState;
+    emit stateChanged(state);
 }
 
 
@@ -39,6 +44,11 @@ std::string User::generateNumber() {
     return result;
 }
 
-void User::onCall_received(const std::string &s) {
-    std::cerr << "Call from: " << getNumber() << " to: " << s << std::endl;
+void User::onAcceptCall_received() {
+    setState(AllowedStates::READY);
 }
+
+void User::onDropCall_received() {
+    setState(AllowedStates::INACTIVE);
+}
+

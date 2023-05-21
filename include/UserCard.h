@@ -16,11 +16,12 @@ class UserCard : public QWidget {
     Q_OBJECT
 
     public:
-    explicit UserCard(User &userModel, QWidget *parent=nullptr);
+    explicit UserCard(User *userModel, QWidget *parent=nullptr);
     ~UserCard() override;
     void setStatus(const std::string &newStatus);
 
     private:
+    int currentStatus;
     Ui::UserCard *ui;
 
     private slots:
@@ -28,10 +29,15 @@ class UserCard : public QWidget {
     void onAcceptCallButton_clicked();
     void onDropCallButton_clicked();
     void onCallText_changed();
+    void onState_changed(int newState);
+    void onMessageReceived(const std::string &message);
+    void onLimitExceeded();
+//    void onCallAllowed();
 
     signals:
     void call(const std::string &subscriberNumber);
-    void textChanged(const std::string &newText);
+    void sendMessage(const std::string &newText);
+    void receiveMessage(const std::string &newText);
     void acceptCall();
     void dropCall();
 

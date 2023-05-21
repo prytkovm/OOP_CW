@@ -29,10 +29,12 @@ class User : public QObject {
     int state;
     std::string number;
     static int objectsCount;
+
     static std::string generateNumber();
 
-    public slots:
-    void onCall_received(const std::string &s);
+    private slots:
+    void onAcceptCall_received();
+    void onDropCall_received();
 
     signals:
     void call(const std::string &subscriberNumber);
@@ -40,6 +42,9 @@ class User : public QObject {
     void dropCall();
     void sendMessage(const std::string &message);
     void receivedMessage(const std::string &message);
+    void stateChanged(int state);
+    void limitExceeded();
+    void callAllowed();
 
 };
 

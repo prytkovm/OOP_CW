@@ -9,22 +9,27 @@
 const int connectionsLimit = 4;
 
 
-class Station : private QObject {
+class Station : public QObject {
     Q_OBJECT
 
     public:
-    explicit Station(std::vector<User> &usersList, QObject *parent=nullptr);
+    explicit Station(std::vector<User*> &usersList, QObject *parent=nullptr);
     ~Station() override = default;
-    ~Station() override = default;
-    void setConnection(User caller1,std::string number);
+
     private:
-    std::vector<User> &users;
-    std::vector<User> talkingUsers;
+    std::vector<User*> &users;
+    std::vector<std::pair<User*, User*>> connectedUsers;
+    User *getUserByNumber(const std::string &number);
 
     private slots:
+    void connect(User *caller, const std::string &receiverNumber);
+    void disconnect(User *caller);
+    void checkLimit();
 
+    signals:
+    void limitExceeded();
+    void callAllowed();
 
-    std::vector<User> activeUsers;
 };
 
 
