@@ -19,14 +19,6 @@ User::User(QObject *parent) : QObject(parent) {
             &User::callAccepted,
             this,
             &User::onCallAccepted);
-    connect(this,
-            &User::callDropped,
-            this,
-            &User::onCallDropped);
-}
-
-void User::setNumber(const std::string &newNumber) {
-    number = newNumber;
 }
 
 std::string User::getNumber() const {
@@ -69,10 +61,5 @@ void User::onDropCall_received() {
 void User::onCallAccepted() {
     setState(AllowedStates::TALK);
     std::cerr << "Call accepted by another her" << std::endl;
-}
-
-void User::onCallDropped() {
-    setState(AllowedStates::INACTIVE);
-    std::cerr << "Call dropped by another her" << std::endl;
 }
 

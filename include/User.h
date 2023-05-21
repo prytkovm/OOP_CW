@@ -21,7 +21,6 @@ class User : public QObject {
     explicit User(QObject *parent=nullptr);
     ~User() override = default;
     std::string getNumber() const;
-    void setNumber(const std::string &newNumber);
     int getState() const;
     void setState(int newState);
 
@@ -36,9 +35,6 @@ class User : public QObject {
     void onAcceptCall_received();
     void onDropCall_received();
     void onCallAccepted();
-
-    public slots:
-    void onCallDropped();
 
     signals:
     void call(const std::string &subscriberNumber);

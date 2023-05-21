@@ -1,9 +1,5 @@
 #include "Station.h"
 #include "User.h"
-#include <QObject>
-#include <vector>
-#include <algorithm>
-#include <iostream>
 
 
 Station::Station(std::vector<User*> &usersList, QObject *parent) : QObject(parent), users(usersList) {
@@ -50,7 +46,6 @@ void Station::processCall(User *caller, const std::string &receiverNumber) {
 }
 
 void Station::disconnect(User *caller) {
-    // TODO: это шляпа, не факт что мы ваще то отключаем (или факт?)
     for (auto &usersPair: connectedUsers) {
         auto firstUser = usersPair.first;
         auto secondUser = usersPair.second;
@@ -70,15 +65,8 @@ void Station::disconnect(User *caller) {
                              &User::acceptCall,
                              firstUser,
                              &User::callAccepted);
-            QObject::disconnect(firstUser,
-                             &User::dropCall,
-                             secondUser,
-                             &User::onCallDropped);
-            QObject::disconnect(secondUser,
-                             &User::dropCall,
-                             firstUser,
-                             &User::onCallDropped);
-
+            firstUser->setState(AllowedStates::INACTIVE);
+            secondUser->setState(AllowedStates::INACTIVE);
             auto id = std::find(connectedUsers.begin(), connectedUsers.end(), usersPair);
             if (id != connectedUsers.end()) {
                 connectedUsers.erase(id);
@@ -90,8 +78,6 @@ void Station::disconnect(User *caller) {
 void Station::checkLimit() {
     if (connectedUsers.size() == connectionsLimit) {
         emit limitExceeded();
-    } else {
-        emit callAllowed();
     }
 }
 
@@ -104,24 +90,12 @@ void Station::connect(User *caller, User *receiver) {
                      &User::sendMessage,
                      caller,
                      &User::receivedMessage);
-    /** Обмен сигналами (типа хэндшейка) **/
     QObject::connect(receiver,
                      &User::acceptCall,
                      caller,
                      &User::callAccepted);
-    QObject::connect(caller,
-                     &User::dropCall,
-                     receiver,
-                     &User::onCallDropped);
-    QObject::connect(receiver,
-                     &User::dropCall,
-                     caller,
-                     &User::onCallDropped);
-    /****/
-
     caller->setState(AllowedStates::CALL);
     receiver->setState(AllowedStates::CALL);
     auto usersPair = std::make_pair(caller, receiver);
     connectedUsers.push_back(usersPair);
-    std::cerr<<"New connection"<<std::endl;
 }

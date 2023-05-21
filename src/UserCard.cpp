@@ -8,9 +8,7 @@
 UserCard::UserCard(User *userModel, QWidget *parent) : QWidget(parent), ui(new Ui::UserCard) {
     ui->setupUi(this);
     ui->selfNumber->setText(QString::fromStdString(userModel->getNumber()));
-    selfNumberAttr = userModel->getNumber();
-    currentStatus = AllowedStates::INACTIVE;
-    setStatus("Трубка повешена");
+    setStatus("Не соединен");
     connect(ui->acceptCall,
             &QPushButton::clicked,
             this,
@@ -51,11 +49,6 @@ UserCard::UserCard(User *userModel, QWidget *parent) : QWidget(parent), ui(new U
             &User::limitExceeded,
             this,
             &UserCard::onLimitExceeded);
-//    connect(userModel,
-//            &User::callAllowed,
-//            this,
-//            &UserCard::onCallAllowed);
-
     auto validator = new QRegularExpressionValidator(QRegularExpression("^[0-9]{4}$"), this);
     ui->subscriberNumber->setValidator(validator);
 }
@@ -116,21 +109,15 @@ void UserCard::setStatus(const std::string &newStatus) {
 void UserCard::onState_changed(int newState) {
     switch (newState) {
         case AllowedStates::INACTIVE:
-            currentStatus = newState;
-            std::cerr<<"Inactive status should be shown at "<< selfNumberAttr<<std::endl;
-            setStatus("Трубка повешена");
+            setStatus("Не соединен");
             break;
         case AllowedStates::READY:
-            currentStatus = newState;
-            std::cerr<<"Ready status should be shown at "<< selfNumberAttr<<std::endl;
             setStatus("Готов");
             break;
         case AllowedStates::CALL:
-            currentStatus = newState;
             setStatus("Вызов");
             break;
         case AllowedStates::TALK:
-            currentStatus = newState;
             setStatus("Разговор");
             break;
         default:
@@ -147,7 +134,3 @@ void UserCard::onMessageReceived(const std::string &message) {
 void UserCard::onLimitExceeded() {
     setStatus("Занято");
 }
-
-//void UserCard::onCallAllowed() {
-//    setStatus()
-//}

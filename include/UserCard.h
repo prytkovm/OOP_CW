@@ -21,9 +21,7 @@ class UserCard : public QWidget {
     void setStatus(const std::string &newStatus);
 
     private:
-    int currentStatus;
     Ui::UserCard *ui;
-    std::string selfNumberAttr;
 
     private slots:
     void onCallButton_clicked();
@@ -33,7 +31,6 @@ class UserCard : public QWidget {
     void onState_changed(int newState);
     void onMessageReceived(const std::string &message);
     void onLimitExceeded();
-//    void onCallAllowed();
 
     signals:
     void call(const std::string &subscriberNumber);
