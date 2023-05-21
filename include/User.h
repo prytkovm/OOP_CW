@@ -45,6 +45,8 @@ class User : public QObject {
     void stateChanged(int state);
     void limitExceeded();
     void callAllowed();
+    void callAccepted();
+    void callDropped();
 
 };
 

@@ -64,6 +64,20 @@ void Station::disconnect(User *caller) {
                              &User::sendMessage,
                              firstUser,
                              &User::receivedMessage);
+
+            QObject::disconnect(secondUser,
+                             &User::acceptCall,
+                             firstUser,
+                             &User::callAccepted);
+            QObject::disconnect(firstUser,
+                             &User::dropCall,
+                             secondUser,
+                             &User::callDropped);
+            QObject::disconnect(secondUser,
+                             &User::dropCall,
+                             firstUser,
+                             &User::callDropped);
+
             firstUser->setState(AllowedStates::INACTIVE);
             secondUser->setState(AllowedStates::INACTIVE);
             auto id = std::find(connectedUsers.begin(), connectedUsers.end(), usersPair);
@@ -91,6 +105,21 @@ void Station::connect(User *caller, User *receiver) {
                      &User::sendMessage,
                      caller,
                      &User::receivedMessage);
+    /** Обмен сигналами (типа хэндшейка) **/
+    QObject::connect(receiver,
+                     &User::acceptCall,
+                     caller,
+                     &User::callAccepted);
+    QObject::connect(caller,
+                     &User::dropCall,
+                     receiver,
+                     &User::callDropped);
+    QObject::connect(receiver,
+                     &User::dropCall,
+                     caller,
+                     &User::callDropped);
+    /****/
+
     caller->setState(AllowedStates::CALL);
     receiver->setState(AllowedStates::CALL);
     auto usersPair = std::make_pair(caller, receiver);
