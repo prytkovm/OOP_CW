@@ -9,6 +9,7 @@ UserCard::UserCard(User *userModel, QWidget *parent) : QWidget(parent), ui(new U
     ui->setupUi(this);
     ui->selfNumber->setText(QString::fromStdString(userModel->getNumber()));
     setStatus("Не соединен");
+    currentState = AllowedStates::INACTIVE;
     connect(ui->acceptCall,
             &QPushButton::clicked,
             this,
@@ -66,8 +67,6 @@ void UserCard::onCallButton_clicked() {
         return;
     }
     emit call(number);
-    ui->callButton->setEnabled(false);
-    ui->talkText->setEnabled(true);
 }
 
 void UserCard::onAcceptCallButton_clicked() {
@@ -77,10 +76,6 @@ void UserCard::onAcceptCallButton_clicked() {
             this,
             &UserCard::onCallText_changed);
     emit acceptCall();
-    ui->acceptCall->setEnabled(false);
-    ui->dropCall->setEnabled(true);
-    ui->callButton->setEnabled(true);
-    ui->subscriberNumber->setEnabled(true);
 }
 
 void UserCard::onDropCallButton_clicked() {
@@ -90,11 +85,6 @@ void UserCard::onDropCallButton_clicked() {
                this,
                &UserCard::onCallText_changed);
     emit dropCall();
-    ui->acceptCall->setEnabled(true);
-    ui->dropCall->setEnabled(false);
-    ui->callButton->setEnabled(true);
-    ui->subscriberNumber->setEnabled(false);
-    ui->talkText->setEnabled(false);
 }
 
 void UserCard::onCallText_changed() {
@@ -110,15 +100,44 @@ void UserCard::onState_changed(int newState) {
     switch (newState) {
         case AllowedStates::INACTIVE:
             setStatus("Не соединен");
+            currentState = newState;
+            ui->acceptCall->setEnabled(true);
+            ui->dropCall->setEnabled(false);
+            ui->callButton->setEnabled(false);
+            ui->subscriberNumber->setEnabled(false);
+            ui->talkText->setEnabled(false);
             break;
         case AllowedStates::READY:
             setStatus("Готов");
+            currentState = newState;
+            ui->acceptCall->setEnabled(false);
+            ui->dropCall->setEnabled(true);
+            ui->callButton->setEnabled(true);
+            ui->subscriberNumber->setEnabled(true);
+            ui->talkText->setEnabled(false);
             break;
         case AllowedStates::CALL:
             setStatus("Вызов");
+            if (currentState == AllowedStates::READY) {
+                ui->dropCall->setEnabled(true);
+                ui->acceptCall->setEnabled(false);
+            } else {
+                ui->dropCall->setEnabled(false);
+                ui->acceptCall->setEnabled(true);
+            }
+            currentState = newState;
+            ui->callButton->setEnabled(false);
+            ui->subscriberNumber->setEnabled(false);
+            ui->talkText->setEnabled(false);
             break;
         case AllowedStates::TALK:
             setStatus("Разговор");
+            currentState = newState;
+            ui->acceptCall->setEnabled(false);
+            ui->dropCall->setEnabled(true);
+            ui->callButton->setEnabled(false);
+            ui->subscriberNumber->setEnabled(false);
+            ui->talkText->setEnabled(true);
             break;
         default:
             break;

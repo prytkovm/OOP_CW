@@ -21,6 +21,7 @@ class UserCard : public QWidget {
     void setStatus(const std::string &newStatus);
 
     private:
+    int currentState;
     Ui::UserCard *ui;
 
     private slots:
