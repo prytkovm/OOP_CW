@@ -45,7 +45,7 @@ std::string User::generateNumber() {
 }
 
 void User::onAcceptCall_received() {
-    if(getState() == AllowedStates::CALL) {
+    if (getState() == AllowedStates::CALL) {
         setState(AllowedStates::TALK);
     }
     else {
