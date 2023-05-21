@@ -37,10 +37,10 @@ User *Station::getUserByNumber(const std::string &number) {
     throw std::runtime_error("Invalid number.");
 }
 
+
 void Station::processCall(User *caller, const std::string &receiverNumber) {
     auto receiver = getUserByNumber(receiverNumber);
     auto receiverState = receiver->getState();
-
     if (receiverState == AllowedStates::TALK) {
         emit callNotAllowed();
         return;
