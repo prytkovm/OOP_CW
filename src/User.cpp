@@ -53,18 +53,17 @@ std::string User::generateNumber() {
 }
 
 void User::onAcceptCall_received() {
-    if(getState() == AllowedStates::CALL)
-    {
+    if(getState() == AllowedStates::CALL) {
         setState(AllowedStates::TALK);
     }
-    else
-    {
+    else {
         setState(AllowedStates::READY);
     }
 }
 
 void User::onDropCall_received() {
     setState(AllowedStates::INACTIVE);
+    std::cerr << "I dropped call" << std::endl;
 }
 
 void User::onCallAccepted() {

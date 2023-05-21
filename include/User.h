@@ -36,6 +36,8 @@ class User : public QObject {
     void onAcceptCall_received();
     void onDropCall_received();
     void onCallAccepted();
+
+    public slots:
     void onCallDropped();
 
     signals:

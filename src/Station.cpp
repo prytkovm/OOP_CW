@@ -73,14 +73,12 @@ void Station::disconnect(User *caller) {
             QObject::disconnect(firstUser,
                              &User::dropCall,
                              secondUser,
-                             &User::callDropped);
+                             &User::onCallDropped);
             QObject::disconnect(secondUser,
                              &User::dropCall,
                              firstUser,
-                             &User::callDropped);
+                             &User::onCallDropped);
 
-            firstUser->setState(AllowedStates::INACTIVE);
-            secondUser->setState(AllowedStates::INACTIVE);
             auto id = std::find(connectedUsers.begin(), connectedUsers.end(), usersPair);
             if (id != connectedUsers.end()) {
                 connectedUsers.erase(id);
@@ -114,11 +112,11 @@ void Station::connect(User *caller, User *receiver) {
     QObject::connect(caller,
                      &User::dropCall,
                      receiver,
-                     &User::callDropped);
+                     &User::onCallDropped);
     QObject::connect(receiver,
                      &User::dropCall,
                      caller,
-                     &User::callDropped);
+                     &User::onCallDropped);
     /****/
 
     caller->setState(AllowedStates::CALL);
