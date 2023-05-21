@@ -50,6 +50,10 @@ UserCard::UserCard(User *userModel, QWidget *parent) : QWidget(parent), ui(new U
             &User::limitExceeded,
             this,
             &UserCard::onLimitExceeded);
+    connect(userModel,
+            &User::callNotAllowed,
+            this,
+            &UserCard::onCallNotAllowed);
     auto validator = new QRegularExpressionValidator(QRegularExpression("^[0-9]{4}$"), this);
     ui->subscriberNumber->setValidator(validator);
 }
@@ -106,6 +110,7 @@ void UserCard::onState_changed(int newState) {
             ui->callButton->setEnabled(false);
             ui->subscriberNumber->setEnabled(false);
             ui->talkText->setEnabled(false);
+            ui->subscriberNumber->clear();
             break;
         case AllowedStates::READY:
             setStatus("Готов");
@@ -151,5 +156,9 @@ void UserCard::onMessageReceived(const std::string &message) {
 }
 
 void UserCard::onLimitExceeded() {
+    setStatus("Занято");
+}
+
+void UserCard::onCallNotAllowed() {
     setStatus("Занято");
 }

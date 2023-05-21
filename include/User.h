@@ -44,7 +44,7 @@ class User : public QObject {
     void receivedMessage(const std::string &message);
     void stateChanged(int state);
     void limitExceeded();
-    void callAllowed();
+    void callNotAllowed();
     void callAccepted();
     void callDropped();
 

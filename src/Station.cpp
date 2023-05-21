@@ -19,9 +19,9 @@ Station::Station(std::vector<User*> &usersList, QObject *parent) : QObject(paren
                          user,
                          &User::limitExceeded);
         QObject::connect(this,
-                        &Station::callAllowed,
+                        &Station::callNotAllowed,
                         user,
-                        &User::callAllowed);
+                        &User::callNotAllowed);
     }
 }
 
@@ -38,7 +38,7 @@ User *Station::getUserByNumber(const std::string &number) {
 void Station::processCall(User *caller, const std::string &receiverNumber) {
     auto receiver = getUserByNumber(receiverNumber);
     auto receiverState = receiver->getState();
-    if (receiverState == AllowedStates::TALK) {
+    if (receiverState != AllowedStates::INACTIVE) {
         emit callNotAllowed();
         return;
     }

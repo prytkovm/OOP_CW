@@ -32,6 +32,7 @@ class UserCard : public QWidget {
     void onState_changed(int newState);
     void onMessageReceived(const std::string &message);
     void onLimitExceeded();
+    void onCallNotAllowed();
 
     signals:
     void call(const std::string &subscriberNumber);
