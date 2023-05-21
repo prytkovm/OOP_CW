@@ -30,7 +30,6 @@ class Station : public QObject {
 
     signals:
     void limitExceeded();
-    void callAllowed();
     void callNotAllowed();
 
 };
