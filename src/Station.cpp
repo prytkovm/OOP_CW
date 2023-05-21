@@ -3,6 +3,7 @@
 #include <QObject>
 #include <vector>
 #include <algorithm>
+#include <iostream>
 
 
 Station::Station(std::vector<User*> &usersList, QObject *parent) : QObject(parent), users(usersList) {
@@ -124,4 +125,5 @@ void Station::connect(User *caller, User *receiver) {
     receiver->setState(AllowedStates::CALL);
     auto usersPair = std::make_pair(caller, receiver);
     connectedUsers.push_back(usersPair);
+    std::cerr<<"New connection"<<std::endl;
 }

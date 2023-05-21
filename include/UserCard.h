@@ -23,6 +23,7 @@ class UserCard : public QWidget {
     private:
     int currentStatus;
     Ui::UserCard *ui;
+    std::string selfNumberAttr;
 
     private slots:
     void onCallButton_clicked();
