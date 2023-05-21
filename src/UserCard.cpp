@@ -2,13 +2,11 @@
 #include <QMessageBox>
 #include <QRegularExpressionValidator>
 #include <QRegularExpression>
-#include <iostream>
 
 
 UserCard::UserCard(User *userModel, QWidget *parent) : QWidget(parent), ui(new Ui::UserCard) {
     ui->setupUi(this);
     ui->selfNumber->setText(QString::fromStdString(userModel->getNumber()));
-    selfNumberAttr = userModel->getNumber();
     currentStatus = AllowedStates::INACTIVE;
     setStatus("Трубка повешена");
     connect(ui->acceptCall,
@@ -129,7 +127,6 @@ void UserCard::onState_changed(int newState) {
         case AllowedStates::TALK:
             currentStatus = newState;
             setStatus("Разговор");
-            std::cerr << "Talk status should be shown in "<< selfNumberAttr <<" user card"<< std::endl;
             break;
         default:
             break;
