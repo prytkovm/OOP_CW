@@ -6,6 +6,7 @@
 #include "User.h"
 
 
+const int usersLimit = 15;
 const int connectionsLimit = 4;
 
 

@@ -37,7 +37,6 @@ class UserCard : public QWidget {
     signals:
     void call(const std::string &subscriberNumber);
     void sendMessage(const std::string &newText);
-    void receiveMessage(const std::string &newText);
     void acceptCall();
     void dropCall();
 

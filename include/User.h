@@ -46,7 +46,6 @@ class User : public QObject {
     void limitExceeded();
     void callNotAllowed();
     void callAccepted();
-    void callDropped();
 
 };
 

@@ -2,7 +2,6 @@
 #include <QMessageBox>
 #include <QRegularExpressionValidator>
 #include <QRegularExpression>
-#include <iostream>
 
 
 UserCard::UserCard(User *userModel, QWidget *parent) : QWidget(parent), ui(new Ui::UserCard) {

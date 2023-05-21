@@ -55,11 +55,9 @@ void User::onAcceptCall_received() {
 
 void User::onDropCall_received() {
     setState(AllowedStates::INACTIVE);
-    std::cerr << "I dropped call" << std::endl;
 }
 
 void User::onCallAccepted() {
     setState(AllowedStates::TALK);
-    std::cerr << "Call accepted by another her" << std::endl;
 }
 
