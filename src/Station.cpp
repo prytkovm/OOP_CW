@@ -8,8 +8,8 @@
 Station::Station(std::vector<User*> &usersList, QObject *parent) : QObject(parent), users(usersList) {
     for (auto &user: users) {
         QObject::connect(user,
-                &User::call,
-                [&user, this](const std::string &receiverNumber) { connect(user, receiverNumber); });
+                         &User::call,
+                         [&user, this](const std::string &receiverNumber) { processCall(user, receiverNumber); });
         QObject::connect(user,
                          &User::dropCall,
                          [&user, this]() { disconnect(user); });
@@ -37,31 +37,25 @@ User *Station::getUserByNumber(const std::string &number) {
     throw std::runtime_error("Invalid number.");
 }
 
-void Station::connect(User *caller, const std::string &receiverNumber) {
+void Station::processCall(User *caller, const std::string &receiverNumber) {
     auto receiver = getUserByNumber(receiverNumber);
-    if (receiver == nullptr) return;
     auto receiverState = receiver->getState();
-    if (receiverState == AllowedStates::TALK) return;
 
-    QObject::connect(caller,
-            &User::sendMessage,
-            receiver,
-            &User::receivedMessage);
-    QObject::connect(receiver,
-                     &User::sendMessage,
-                     caller,
-                     &User::receivedMessage);
-    caller->setState(AllowedStates::TALK);
-    receiver->setState(AllowedStates::CALL);
-    auto usersPair = std::make_pair(caller, receiver);
-    connectedUsers.push_back(usersPair);
+    if (receiverState == AllowedStates::TALK) {
+        emit callNotAllowed();
+        return;
+    }
+    connect(caller, receiver);
 }
 
 void Station::disconnect(User *caller) {
+    // TODO: это шляпа, не факт что мы ваще то отключаем (или факт?)
     for (auto &usersPair: connectedUsers) {
         auto firstUser = usersPair.first;
         auto secondUser = usersPair.second;
-        if (firstUser->getNumber() == caller->getNumber() || secondUser->getNumber() == caller->getNumber()) {
+        bool firstFound = (firstUser->getNumber() == caller->getNumber());
+        bool secondFound = (secondUser->getNumber() == caller->getNumber());
+        if (firstFound || secondFound) {
             QObject::disconnect(firstUser,
                              &User::sendMessage,
                              secondUser,
@@ -86,4 +80,19 @@ void Station::checkLimit() {
     } else {
         emit callAllowed();
     }
+}
+
+void Station::connect(User *caller, User *receiver) {
+    QObject::connect(caller,
+                     &User::sendMessage,
+                     receiver,
+                     &User::receivedMessage);
+    QObject::connect(receiver,
+                     &User::sendMessage,
+                     caller,
+                     &User::receivedMessage);
+    caller->setState(AllowedStates::CALL);
+    receiver->setState(AllowedStates::CALL);
+    auto usersPair = std::make_pair(caller, receiver);
+    connectedUsers.push_back(usersPair);
 }

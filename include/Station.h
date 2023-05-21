@@ -20,15 +20,17 @@ class Station : public QObject {
     std::vector<User*> &users;
     std::vector<std::pair<User*, User*>> connectedUsers;
     User *getUserByNumber(const std::string &number);
+    void connect(User *caller, User *receiver);
 
     private slots:
-    void connect(User *caller, const std::string &receiverNumber);
+    void processCall(User *caller, const std::string &receiverNumber);
     void disconnect(User *caller);
     void checkLimit();
 
     signals:
     void limitExceeded();
     void callAllowed();
+    void callNotAllowed();
 
 };
 
