@@ -6,7 +6,6 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-set(CMAKE_PREFIX_PATH "D:/Qt/6.5.0/mingw_64")
 set(CMAKE_AUTOUIC_SEARCH_PATHS "forms/")
 set(AUTOGEN_BUILD_DIR "include/")
 
